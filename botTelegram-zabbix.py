@@ -28,12 +28,12 @@ import urllib
 
 ##########################################
 # Vai ter que instalar o pyhton e o pip
-# pip install telegram logging subprocess urllib --upgrade
+# pip install pip python-telegram-bot --upgrade
 # apt-get install python-urllib3
 ##########################################
 
 ##########################################
-# Abir o Zabbix ir em monitoramento - > mapas
+# Abrir o Zabbix ir em monitoramento - > mapas
 # No firefox vc clica com o direito encima do mapa e vai em ver imagem
 # Copia a url e cola abaixo no mapa1 e assim por diante
 # Neste exemplo você tem como coletar 5 mapas diferente
