@@ -9,6 +9,7 @@
 # Date: 30/05/2016
 # Author: Diego Maia - diegosmaia@yahoo.com.br Telegram - @diegosmaia
 # Aproveitei algumas ideias do https://github.com/python-telegram-bot/python-telegram-bot
+# Bernardo Lankheet @bernardolankheet - Avisou do dp.addHandler do comando do Help - Este comando está entrando em deprecate
 ##########################################################################
 
 from telegram.ext import Updater, CommandHandler
@@ -201,7 +202,7 @@ def main():
     dp.add_handler(CommandHandler("rede3", mapa3))
     dp.add_handler(CommandHandler("rede4", mapa4))
     dp.add_handler(CommandHandler("rede5", mapa5))
-    dp.addHandler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("help", help))
 
     # log all errors
     dp.add_error_handler(error)
