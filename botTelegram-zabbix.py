@@ -4,8 +4,8 @@
 ##########################################################################
 # BotTelegram Zabbix
 # Filename: botTelegram-zabbix.py
-# Revision: 1.0
-# Revision_data: 30/05/2016
+# Revision: 1.2
+# Revision_data: 16/02/2017
 # Date: 30/05/2016
 # Author: Diego Maia - diegosmaia@yahoo.com.br Telegram - @diegosmaia
 # Aproveitei algumas ideias do https://github.com/python-telegram-bot/python-telegram-bot
@@ -72,8 +72,8 @@ varBotToken = '161080402:AAGah3HIxM9jUr0NX1WmEKX3cJCv9PyWD58'
 # Variaveis a serem modificadas
 ############################################
 
-varUsername = "diego"
-varPassword = "teste"
+varUsername = "admin"
+varPassword = "zabbix"
 varZabbixServer = "http://192.168.10.24/zabbix"
 
 # Tela de login está em portugues ou Ingles
@@ -95,6 +95,7 @@ varcookie = None
 
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
+
 
 
 
@@ -280,6 +281,7 @@ def error(bot, update, error):
 
 
 def login():
+    global varcookie
     requests.packages.urllib3.disable_warnings()
 
     if varZabbixLanguage == "PT":
@@ -289,7 +291,7 @@ def login():
 
     req_cookie = requests.post(varZabbixServer + "/", data=data_api, verify=True)
     varcookie = req_cookie.cookies
-
+ 
 
     if len(req_cookie.history) > 1 and req_cookie.history[0].status_code == 302:
         logger.warn("Verificar o endereço do servidor")
@@ -298,21 +300,20 @@ def login():
         logger.warn("Verificar o usuário e senha")
         varcookie = None
 
-
 def grafico(bot, update, args):
         chat_id = update.message.chat_id
         if not chat_id in users_liberados:
             logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
             return
         try:
-            print len(args)
+            #print len(args)
             if len(args) < 2:
                 bot.sendMessage(chat_id, text='O correto é /grafico idgrafico segundos')
                 return False
             grafico_id = args[0]
             grafico_seg = args[1]
             login()     
-            zbx_img_url = ("http://192.168.10.24/zabbix/chart.php?itemids={}&period={}&width=600".format(grafico_id, grafico_seg))
+            zbx_img_url = ("{}/chart.php?itemids={}&period={}&width=600".format(varZabbixServer, grafico_id, grafico_seg))
             file_img = "botTelegram_grafico_{}.jpg".format(grafico_id)
             res = requests.get(zbx_img_url, cookies=varcookie)
             res_code = res.status_code
