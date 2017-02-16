@@ -20,6 +20,8 @@ import urllib
 import requests
 
 ##########################################
+# Python install module 
+# pip install python-telegram-bot
 # Para testes 
 # python botTelegram-zabbix.py
 #
