@@ -24,11 +24,7 @@ pip install -r requirements.txt
 
 Editar o arquivo botTelegram-zabbix.py
 
-\#############################
-
-\#############################
-
-Modificar as linhas abaixo
+Modificar as linhas abaixo:
 
 \#############################
 
