@@ -2,16 +2,32 @@
 Telegram Zabbix Bot - Send Network Map
 
 
+
+
+#############################
 Instalar o Python Pip
+#############################
+
+
 sudo apt-get install python-pip
 
+#############################
 Instalar os pacotes python necessários
+#############################
+
+
 pip install -r requirements.txt
 
-
+#############################
 Editar o arquivo botTelegram-zabbix.py
+#############################
 
+#############################
 Modificar as linhas abaixo
+#############################
+
+
+
 
 ##########################################
 # Abrir o Zabbix ir em monitoramento - > mapas
@@ -48,7 +64,10 @@ varZabbixLanguage = "US"
 # varZabbixLanguage = "PT"
 
 
+#############################
+Para acompanhar as atualizações: 
+https://telegram.me/githubdiegosmaia
+#############################
 
-Para acompanhar as atualizações: https://telegram.me/githubdiegosmaia
 
 https://br.linkedin.com/pub/diego-santos-maia/2b/b60/173
