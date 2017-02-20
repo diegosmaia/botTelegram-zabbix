@@ -65,7 +65,10 @@ Se for em portugues (PT) vc comenta a linha varZabbixLanguage = "US" com # no in
 
 varZabbixLanguage = "PT"
 
+
 varZabbixLanguage = "US"
+
+
 \# varZabbixLanguage = "PT"
 
 
