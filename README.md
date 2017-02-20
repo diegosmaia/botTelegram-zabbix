@@ -29,18 +29,12 @@ Modificar as linhas abaixo:
 \#############################
 
 
-
-
-\##########################################
-
 Abrir o Zabbix ir em monitoramento - > mapas
 No firefox vc clica com o direito encima do mapa e vai em ver imagem
 Copia a url e cola abaixo no mapa1 e assim por diante
 Neste exemplo você tem como coletar 5 mapas diferente
 Eu fiz um mapa com o status geral da rede e outros de cada filial
 Estou deixando o arquivo JPG de exemplo de como montei o meu mapa 
-
-\##########################################
 
 varZabbixmapa1 = "http://192.168.10.24/zabbix/map.php?sysmapid=8&severity_min=5"
 varZabbixmapa2 = "http://192.168.10.24/zabbix/map.php?sysmapid=2&severity_min=4"
@@ -63,7 +57,9 @@ varPassword = "zabbix"
 varZabbixServer = "http://192.168.10.24/zabbix"
 
 Tela de login está em portugues ou Ingles
-Se for em portugues (PT) vc comenta a linha varZabbixLanguage = "US" com # no início da linha, e descomenta (retira o #) da linha varZabbixLanguage = "PT"
+Se for em portugues (PT) vc comenta a linha varZabbixLanguage = "US" com # no início da linha, e descomenta (retira o #) da linha 
+
+varZabbixLanguage = "PT"
 
 varZabbixLanguage = "US"
 \# varZabbixLanguage = "PT"
