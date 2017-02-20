@@ -4,9 +4,9 @@ Telegram Zabbix Bot - Send Network Map
 
 
 
-#############################
+\#############################
 Instalar o Python Pip
-#############################
+\#############################
 
 
 sudo apt-get install python-pip
