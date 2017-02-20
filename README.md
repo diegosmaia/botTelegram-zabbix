@@ -32,12 +32,14 @@ Modificar as linhas abaixo:
 
 
 \##########################################
-\# Abrir o Zabbix ir em monitoramento - > mapas
-\# No firefox vc clica com o direito encima do mapa e vai em ver imagem
-\# Copia a url e cola abaixo no mapa1 e assim por diante
-\# Neste exemplo você tem como coletar 5 mapas diferente
-\# Eu fiz um mapa com o status geral da rede e outros de cada filial
-\# Estou deixando o arquivo JPG de exemplo de como montei o meu mapa 
+
+Abrir o Zabbix ir em monitoramento - > mapas
+No firefox vc clica com o direito encima do mapa e vai em ver imagem
+Copia a url e cola abaixo no mapa1 e assim por diante
+Neste exemplo você tem como coletar 5 mapas diferente
+Eu fiz um mapa com o status geral da rede e outros de cada filial
+Estou deixando o arquivo JPG de exemplo de como montei o meu mapa 
+
 \##########################################
 
 varZabbixmapa1 = "http://192.168.10.24/zabbix/map.php?sysmapid=8&severity_min=5"
@@ -47,20 +49,21 @@ varZabbixmapa4 = "http://192.168.10.24/zabbix/map.php?sysmapid=6&severity_min=4"
 varZabbixmapa5 = "http://192.168.10.24/zabbix/map.php?sysmapid=8&severity_min=5"
 
 \# Verificar o arquivo 
+
 \# https://github.com/diegosmaia/zabbix-telegram/blob/master/Zabbix-Telegram-com-graficos.pdf
 
 varBotToken = '161080402:AAGah3HIxM9jUr0NX1WmEKX3cJCv9PyWD58'
 
 \############################################
-\# Variaveis a serem modificadas
+Variaveis a serem modificadas
 \############################################
 
 varUsername = "admin"
 varPassword = "zabbix"
 varZabbixServer = "http://192.168.10.24/zabbix"
 
-\# Tela de login está em portugues ou Ingles
-\# Se for em portugues (PT) vc comenta a linha varZabbixLanguage = "US" com # no início da linha, e descomenta (retira o #) da linha varZabbixLanguage = "PT"
+Tela de login está em portugues ou Ingles
+Se for em portugues (PT) vc comenta a linha varZabbixLanguage = "US" com # no início da linha, e descomenta (retira o #) da linha varZabbixLanguage = "PT"
 
 varZabbixLanguage = "US"
 \# varZabbixLanguage = "PT"
