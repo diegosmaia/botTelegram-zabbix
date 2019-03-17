@@ -1,6 +1,9 @@
 # botTelegram-zabbix
 #Telegram Zabbix Bot - Send Network Map
 
+Zabbix Bot - Update para send maps do Zabbix 4.0
+Esta versão suporta as nova versão do zabbix, e o script que gera um screenshot da página pode ser utilizado para outros sites 
+
 \#############################
 
 Baixar o PhantonJS e extrair na mesma pasta do bot /opt/botTelegram_zabbix
