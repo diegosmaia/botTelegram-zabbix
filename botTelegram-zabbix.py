@@ -4,8 +4,8 @@
 #########################################################################
 # BotTelegram Zabbix
 # Filename: botTelegram-zabbix.py
-# Revision: 1.2
-# Revision_data: 16/02/2017
+# Revision: 1.3
+# Revision_data: 16/03/2019
 # Date: 30/05/2016
 # Author: Diego Maia - diegosmaia@yahoo.com.br Telegram - @diegosmaia
 # Aproveitei algumas ideias do https://github.com/python-telegram-bot/python-telegram-bot
@@ -35,21 +35,9 @@ import requests
 # pip install pip python-telegram-bot --upgrade
 # apt-get install python-urllib3
 ##########################################
-
+# baixar o PhantonJS e extrair na mesma pasta do bot. exemplo /opt/botTelegram_zabbix
+# https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
 ##########################################
-# Abrir o Zabbix ir em monitoramento - > mapas
-# No firefox vc clica com o direito encima do mapa e vai em ver imagem
-# Copia a url e cola abaixo no mapa1 e assim por diante
-# Neste exemplo você tem como coletar 5 mapas diferente
-# Eu fiz um mapa com o status geral da rede e outros de cada filial
-# Estou deixando o arquivo JPG de exemplo de como montei o meu mapa 
-##########################################
-
-varZabbixmapa1 = "http://192.168.10.24/zabbix/map.php?sysmapid=8&severity_min=5"
-varZabbixmapa2 = "http://192.168.10.24/zabbix/map.php?sysmapid=2&severity_min=4"
-varZabbixmapa3 = "http://192.168.10.24/zabbix/map.php?sysmapid=5&severity_min=4"
-varZabbixmapa4 = "http://192.168.10.24/zabbix/map.php?sysmapid=6&severity_min=4"
-varZabbixmapa5 = "http://192.168.10.24/zabbix/map.php?sysmapid=8&severity_min=5"
 
 ##########################################
 # Usuários Liberados para acessar o bot
@@ -82,6 +70,7 @@ varZabbixLanguage = "US"
 
 ##########################################
 
+
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO,
                     filename='botTelegram_zabbix.log')
@@ -107,159 +96,110 @@ def start(bot, update):
         return
     bot.sendMessage(update.message.chat_id, text='Seja bem vindo!!')
 
-def mapa1(bot, update):
+def send_zabbix_mapa1(bot, update):
+		chat_id = update.message.chat_id
+		if not chat_id in users_liberados:
+				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
+				return
+		try:
+				#sys.argv = [chat_id]
+				varSendcameracmd = "/opt/botTelegram_zabbix/zabbix_maps.sh {} 1&" .format(chat_id)
+				#zabbix_maps.sh {} 1& - o número 1 é o id do mapa no zabbix
+				subprocess.call(varSendcameracmd, shell=True)
+				bot.sendMessage(chat_id, text='Por favor, espere o envio do snapshot.')
+		except IndexError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
+		except ValueError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
+
+
+def send_zabbix_mapa2(bot, update):
     chat_id = update.message.chat_id
-    if not chat_id in users_liberados:
-        logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
-        return
-    try:
-        bot.sendMessage(chat_id, text='Aguarde, consulta em execução...')
-
-        # urllib.urlretrieve(varZabbixmapa5, "botTelegram_mapa5.jpg")
-        login()
-        zbx_img_url = varZabbixmapa1
-        file_img = "botTelegram_mapa1.jpg"
-        res = requests.get(zbx_img_url, cookies=varcookie)
-        res_code = res.status_code
-        if res_code == 404:
-            logger.warn("Verificar o endereço do Zabbix Mapa: {}".format(zbx_img_url))
-            return False
-        res_img = res.content
-        with open(file_img, 'wb') as fp:
-            fp.write(res_img)
-        fp.close
-        bot.sendPhoto(chat_id=update.message.chat_id, photo=open(file_img, 'rb'))
-
-    except IndexError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
-    except ValueError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
+		if not chat_id in users_liberados:
+				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
+				return
+		try:
+				#sys.argv = [chat_id]
+				varSendcameracmd = "/opt/botTelegram_zabbix/zabbix_maps.sh {} 2&" .format(chat_id)
+				subprocess.call(varSendcameracmd, shell=True)
+				bot.sendMessage(chat_id, text='Por favor, espere o envio do snapshot.')
+		except IndexError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
+		except ValueError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
 
 
-def mapa2(bot, update):
-    chat_id = update.message.chat_id
-    if not chat_id in users_liberados:
-        logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
-        return
-    try:
-        bot.sendMessage(chat_id, text='Aguarde, consulta em execução...')
+def send_zabbix_mapa3(bot, update):
+chat_id = update.message.chat_id
+		if not chat_id in users_liberados:
+				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
+				return
+		try:
+				#sys.argv = [chat_id]
+				varSendcameracmd = "/opt/botTelegram_zabbix/zabbix_maps.sh {} 3&" .format(chat_id)
+				subprocess.call(varSendcameracmd, shell=True)
+				bot.sendMessage(chat_id, text='Por favor, espere o envio do snapshot.')
+		except IndexError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
+		except ValueError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
 
-        # urllib.urlretrieve(varZabbixmapa5, "botTelegram_mapa5.jpg")
-        login()
-        zbx_img_url = varZabbixmapa2
-        file_img = "botTelegram_mapa2.jpg"
-        res = requests.get(zbx_img_url, cookies=varcookie)
-        res_code = res.status_code
-        if res_code == 404:
-            logger.warn("Verificar o endereço do Zabbix Mapa: {}".format(zbx_img_url))
-            return False
-        res_img = res.content
-        with open(file_img, 'wb') as fp:
-            fp.write(res_img)
-        fp.close
-        bot.sendPhoto(chat_id=update.message.chat_id, photo=open(file_img, 'rb'))
+def send_zabbix_mapa4(bot, update):
+chat_id = update.message.chat_id
+		if not chat_id in users_liberados:
+				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
+				return
+		try:
+				#sys.argv = [chat_id]
+				varSendcameracmd = "/opt/botTelegram_zabbix/zabbix_maps.sh {} 4&" .format(chat_id)
+				subprocess.call(varSendcameracmd, shell=True)
+				bot.sendMessage(chat_id, text='Por favor, espere o envio do snapshot.')
+		except IndexError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
+		except ValueError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
 
-    except IndexError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
-    except ValueError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
+def send_zabbix_mapa5(bot, update):
+chat_id = update.message.chat_id
+		if not chat_id in users_liberados:
+				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
+				return
+		try:
+				#sys.argv = [chat_id]
+				varSendcameracmd = "/opt/botTelegram_zabbix/zabbix_maps.sh {} 5&" .format(chat_id)
+				subprocess.call(varSendcameracmd, shell=True)
+				bot.sendMessage(chat_id, text='Por favor, espere o envio do snapshot.')
+		except IndexError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
+		except ValueError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
 
-
-def mapa3(bot, update):
-    chat_id = update.message.chat_id
-    if not chat_id in users_liberados:
-        logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
-        return
-    try:
-        bot.sendMessage(chat_id, text='Aguarde, consulta em execução...')
-
-        # urllib.urlretrieve(varZabbixmapa5, "botTelegram_mapa5.jpg")
-        login()
-        zbx_img_url = varZabbixmapa3
-        file_img = "botTelegram_mapa3.jpg"
-        res = requests.get(zbx_img_url, cookies=varcookie)
-        res_code = res.status_code
-        if res_code == 404:
-            logger.warn("Verificar o endereço do Zabbix Mapa: {}".format(zbx_img_url))
-            return False
-        res_img = res.content
-        with open(file_img, 'wb') as fp:
-            fp.write(res_img)
-        fp.close
-        bot.sendPhoto(chat_id=update.message.chat_id, photo=open(file_img, 'rb'))
-
-    except IndexError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
-    except ValueError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
-
-
-def mapa4(bot, update):
-    chat_id = update.message.chat_id
-    if not chat_id in users_liberados:
-        logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
-        return
-    try:
-        bot.sendMessage(chat_id, text='Aguarde, consulta em execução...')
-
-        # urllib.urlretrieve(varZabbixmapa5, "botTelegram_mapa5.jpg")
-        login()
-        zbx_img_url = varZabbixmapa4
-        file_img = "botTelegram_mapa4.jpg"
-        res = requests.get(zbx_img_url, cookies=varcookie)
-        res_code = res.status_code
-        if res_code == 404:
-            logger.warn("Verificar o endereço do Zabbix Mapa: {}".format(zbx_img_url))
-            return False
-        res_img = res.content
-        with open(file_img, 'wb') as fp:
-            fp.write(res_img)
-        fp.close
-        bot.sendPhoto(chat_id=update.message.chat_id, photo=open(file_img, 'rb'))
-
-    except IndexError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
-    except ValueError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
-
-
-def mapa5(bot, update):
-    chat_id = update.message.chat_id
-    if not chat_id in users_liberados:
-        logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
-        return
-    try:
-        bot.sendMessage(chat_id, text='Aguarde, consulta em execução...')
-
-        # urllib.urlretrieve(varZabbixmapa5, "botTelegram_mapa5.jpg")
-        login()
-        zbx_img_url = varZabbixmapa5
-        file_img = "botTelegram_mapa5.jpg"
-        res = requests.get(zbx_img_url, cookies=varcookie)
-        res_code = res.status_code
-        if res_code == 404:
-            logger.warn("Verificar o endereço do Zabbix Mapa: {}".format(zbx_img_url))
-            return False
-        res_img = res.content
-        with open(file_img, 'wb') as fp:
-            fp.write(res_img)
-        fp.close
-        bot.sendPhoto(chat_id=update.message.chat_id, photo=open(file_img, 'rb'))
-
-    except IndexError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
-    except ValueError:
-        # bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
-        return
+def send_zabbix_links(bot, update):
+		chat_id = update.message.chat_id
+		if not chat_id in users_liberados:
+				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
+				return
+		try:
+				#sys.argv = [chat_id]
+				varSendcameracmd = "/opt/botTelegram_telecom/zabbix_maps.sh {} 6&" .format(chat_id)
+				subprocess.call(varSendcameracmd, shell=True)
+				bot.sendMessage(chat_id, text='Por favor, espere o envio do snapshot.')
+		except IndexError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
+		except ValueError:
+				# bot.sendMessage(chat_id, text='Comando não reconhecido ou usuário não liberado')
+				return
 
 
 def help(bot, update):
@@ -342,11 +282,11 @@ def main():
     # on different commands - answer in Telegram
     # Voce pode modificar os comandos que estao entre "" e deixar a funcao 
 
-    dp.add_handler(CommandHandler("rede1", mapa1))
-    dp.add_handler(CommandHandler("rede2", mapa2))
-    dp.add_handler(CommandHandler("rede3", mapa3))
-    dp.add_handler(CommandHandler("rede4", mapa4))
-    dp.add_handler(CommandHandler("rede5", mapa5))
+    dp.add_handler(CommandHandler("rede1", send_zabbix_mapa1))
+    dp.add_handler(CommandHandler("rede2", send_zabbix_mapa2))
+    dp.add_handler(CommandHandler("rede3", send_zabbix_mapa3))
+    dp.add_handler(CommandHandler("rede4", send_zabbix_mapa4))
+    dp.add_handler(CommandHandler("rede5", send_zabbix_mapa5))
     dp.add_handler(CommandHandler("grafico", grafico, pass_args=True))
     dp.add_handler(CommandHandler("help", help))
 

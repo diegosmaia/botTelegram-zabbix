@@ -1,6 +1,12 @@
 # botTelegram-zabbix
 #Telegram Zabbix Bot - Send Network Map
 
+\#############################
+
+Baixar o PhantonJS e extrair na mesma pasta do bot /opt/botTelegram_zabbix
+https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+
+\#############################
 
 \#############################
 
@@ -31,19 +37,11 @@ Modificar as linhas abaixo:
 
 Abrir o Zabbix ir em monitoramento - > mapas
 
-No firefox vc clica com o direito encima do mapa e vai em ver imagem, copia a url e cola abaixo no mapa1 e assim por diante
+Copiar os ID dos mapas que quer receber pelo Telegram
 
-Neste exemplo você tem como coletar 5 mapas diferente, eu fiz um mapa com o status geral da rede e outros de cada filial.Estou deixando o arquivo JPG de exemplo de como montei o meu mapa 
+Procurar por estas linhas e modificar o número 1 depois do {} pelo ID do mapa do Zabbix
+varSendcameracmd = "/opt/botTelegram_zabbix/zabbix_maps.sh {} 1&" .format(chat_id)
 
-varZabbixmapa1 = "http://192.168.10.24/zabbix/map.php?sysmapid=8&severity_min=5"
-
-varZabbixmapa2 = "http://192.168.10.24/zabbix/map.php?sysmapid=2&severity_min=4"
-
-varZabbixmapa3 = "http://192.168.10.24/zabbix/map.php?sysmapid=5&severity_min=4"
-
-varZabbixmapa4 = "http://192.168.10.24/zabbix/map.php?sysmapid=6&severity_min=4"
-
-varZabbixmapa5 = "http://192.168.10.24/zabbix/map.php?sysmapid=8&severity_min=5"
 
 
 Verificar o pdf abaixo sobre como criar o BOT e conseguir o BotToken
@@ -71,6 +69,15 @@ varZabbixLanguage = "US"
 
 \# varZabbixLanguage = "PT"
 
+
+\#############################
+Modificar nos scripts .JS 
+
+var zabbix = 'http://192.168.10.24/zabbix' ; 
+var zabbix_user = 'admin' ; 
+var zabbix_password = 'zabbix' ; 
+
+\#############################
 
 \#############################
 
