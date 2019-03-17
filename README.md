@@ -71,11 +71,15 @@ varZabbixLanguage = "US"
 
 
 \#############################
+
 Modificar nos scripts .JS 
 
-var zabbix = 'http://192.168.10.24/zabbix' ; 
-var zabbix_user = 'admin' ; 
-var zabbix_password = 'zabbix' ; 
+var zabbix = 'http://192.168.10.24/zabbix' ;
+
+var zabbix_user = 'admin' ;
+
+var zabbix_password = 'zabbix' ;
+
 
 \#############################
 
