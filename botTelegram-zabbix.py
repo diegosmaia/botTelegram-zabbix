@@ -73,7 +73,7 @@ varZabbixLanguage = "US"
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO,
-                    filename='botTelegram_zabbix.log')
+										filename='botTelegram_zabbix.log')
 logging.info('Started')
 
 logger = logging.getLogger(__name__)
@@ -89,12 +89,12 @@ varcookie = None
 
 
 def start(bot, update):
-    chat_id = update.message.chat_id
-    if not chat_id in users_liberados:
-        logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
-        # bot.sendMessage(chat_id, text = 'Comando não reconhecido ou usuário não liberado')
-        return
-    bot.sendMessage(update.message.chat_id, text='Seja bem vindo!!')
+		chat_id = update.message.chat_id
+		if not chat_id in users_liberados:
+				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
+				# bot.sendMessage(chat_id, text = 'Comando não reconhecido ou usuário não liberado')
+				return
+		bot.sendMessage(update.message.chat_id, text='Seja bem vindo!!')
 
 def send_zabbix_mapa1(bot, update):
 		chat_id = update.message.chat_id
@@ -116,7 +116,7 @@ def send_zabbix_mapa1(bot, update):
 
 
 def send_zabbix_mapa2(bot, update):
-    chat_id = update.message.chat_id
+		chat_id = update.message.chat_id
 		if not chat_id in users_liberados:
 				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
 				return
@@ -203,105 +203,105 @@ def send_zabbix_links(bot, update):
 
 
 def help(bot, update):
-    chat_id = update.message.chat_id
-    if not chat_id in users_liberados:
-        logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
-        return
-    bot.sendMessage(update.message.chat_id, text="Help:\n"
-                                                 "/rede1 - Mapa 1\n"
-                                                 "/rede2 - Mapa 2\n"
-                                                 "/rede3 - Mapa 3\n"
-                                                 "/rede4 - Mapa 4\n"
-                                                 "/rede5 - Mapa 5\n"
-                                                 "/grafico grafid grafsegundos - Envia graficos\n")
+		chat_id = update.message.chat_id
+		if not chat_id in users_liberados:
+				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
+				return
+		bot.sendMessage(update.message.chat_id, text="Help:\n"
+																								 "/rede1 - Mapa 1\n"
+																								 "/rede2 - Mapa 2\n"
+																								 "/rede3 - Mapa 3\n"
+																								 "/rede4 - Mapa 4\n"
+																								 "/rede5 - Mapa 5\n"
+																								 "/grafico grafid grafsegundos - Envia graficos\n")
 
 
 def error(bot, update, error):
-    logger.warn('Update "%s" error "%s"' % (update, error))
+		logger.warn('Update "%s" error "%s"' % (update, error))
 
 
 def login():
-    global varcookie
-    requests.packages.urllib3.disable_warnings()
+		global varcookie
+		requests.packages.urllib3.disable_warnings()
 
-    if varZabbixLanguage == "PT":
-        data_api = {"name": varUsername, "password": varPassword, "enter": "Conectar-se"}
-    else:
-        data_api = {"name": varUsername, "password": varPassword, "enter": "Sign in"}
+		if varZabbixLanguage == "PT":
+				data_api = {"name": varUsername, "password": varPassword, "enter": "Conectar-se"}
+		else:
+				data_api = {"name": varUsername, "password": varPassword, "enter": "Sign in"}
 
-    req_cookie = requests.post(varZabbixServer + "/", data=data_api, verify=True)
-    varcookie = req_cookie.cookies
+		req_cookie = requests.post(varZabbixServer + "/", data=data_api, verify=True)
+		varcookie = req_cookie.cookies
  
 
-    if len(req_cookie.history) > 1 and req_cookie.history[0].status_code == 302:
-        logger.warn("Verificar o endereço do servidor")
+		if len(req_cookie.history) > 1 and req_cookie.history[0].status_code == 302:
+				logger.warn("Verificar o endereço do servidor")
 
-    if not varcookie:
-        logger.warn("Verificar o usuário e senha")
-        varcookie = None
+		if not varcookie:
+				logger.warn("Verificar o usuário e senha")
+				varcookie = None
 
 def grafico(bot, update, args):
-        chat_id = update.message.chat_id
-        if not chat_id in users_liberados:
-            logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
-            return
-        try:
-            #print len(args)
-            if len(args) < 2:
-                bot.sendMessage(chat_id, text='O correto é /grafico idgrafico segundos')
-                return False
-            grafico_id = args[0]
-            grafico_seg = args[1]
-            login()     
-            zbx_img_url = ("{}/chart.php?itemids={}&period={}&width=600".format(varZabbixServer, grafico_id, grafico_seg))
-            file_img = "botTelegram_grafico_{}.jpg".format(grafico_id)
-            res = requests.get(zbx_img_url, cookies=varcookie)
-            res_code = res.status_code
-            if res_code == 404:
-                logger.warn("Verificar o endereço do Zabbix Grafico: {}".format(zbx_img_url))
-                return False
-            res_img = res.content
-            with open(file_img, 'wb') as fp:
-                fp.write(res_img)
-            fp.close()
-            bot.sendPhoto(chat_id=update.message.chat_id, photo=open(file_img, 'rb'))
+		chat_id = update.message.chat_id
+		if not chat_id in users_liberados:
+				logging.info("Usuario Telegram não liberado - ID {}".format(chat_id))
+				return
+		try:
+				#print len(args)
+				if len(args) < 2:
+					bot.sendMessage(chat_id, text='O correto é /grafico idgrafico segundos')
+					return False
+				grafico_id = args[0]
+				grafico_seg = args[1]
+				login()			
+				zbx_img_url = ("{}/chart.php?itemids={}&period={}&width=600".format(varZabbixServer, grafico_id, grafico_seg))
+				file_img = "botTelegram_grafico_{}.jpg".format(grafico_id)
+				res = requests.get(zbx_img_url, cookies=varcookie)
+				res_code = res.status_code
+				if res_code == 404:
+					logger.warn("Verificar o endereço do Zabbix Grafico: {}".format(zbx_img_url))
+					return False
+				res_img = res.content
+				with open(file_img, 'wb') as fp:
+					fp.write(res_img)
+				fp.close()
+				bot.sendPhoto(chat_id=update.message.chat_id, photo=open(file_img, 'rb'))
 
-        except (IndexError, ValueError):
-            update.message.reply_text('O correto é /grafico idgrafico segundos')
-            return
+		except (IndexError, ValueError):
+				update.message.reply_text('O correto é /grafico idgrafico segundos')
+				return
 
 def main():
-    global job_queue
+		global job_queue
 
-    updater = Updater(varBotToken)
-    job_queue = updater.job_queue
+		updater = Updater(varBotToken)
+		job_queue = updater.job_queue
 
-    # Get the dispatcher to register handlers
-    dp = updater.dispatcher
+		# Get the dispatcher to register handlers
+		dp = updater.dispatcher
 
-    # on different commands - answer in Telegram
-    # Voce pode modificar os comandos que estao entre "" e deixar a funcao 
+		# on different commands - answer in Telegram
+		# Voce pode modificar os comandos que estao entre "" e deixar a funcao 
 
-    dp.add_handler(CommandHandler("rede1", send_zabbix_mapa1))
-    dp.add_handler(CommandHandler("rede2", send_zabbix_mapa2))
-    dp.add_handler(CommandHandler("rede3", send_zabbix_mapa3))
-    dp.add_handler(CommandHandler("rede4", send_zabbix_mapa4))
-    dp.add_handler(CommandHandler("rede5", send_zabbix_mapa5))
-    dp.add_handler(CommandHandler("grafico", grafico, pass_args=True))
-    dp.add_handler(CommandHandler("help", help))
+		dp.add_handler(CommandHandler("rede1", send_zabbix_mapa1))
+		dp.add_handler(CommandHandler("rede2", send_zabbix_mapa2))
+		dp.add_handler(CommandHandler("rede3", send_zabbix_mapa3))
+		dp.add_handler(CommandHandler("rede4", send_zabbix_mapa4))
+		dp.add_handler(CommandHandler("rede5", send_zabbix_mapa5))
+		dp.add_handler(CommandHandler("grafico", grafico, pass_args=True))
+		dp.add_handler(CommandHandler("help", help))
 
-    # log all errors
-    dp.add_error_handler(error)
+		# log all errors
+		dp.add_error_handler(error)
 
-    # Start the Bot
-    updater.start_polling()
+		# Start the Bot
+		updater.start_polling()
 
-    # Block until the you presses Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT. This should be used most of the time, since
-    # start_polling() is non-blocking and will stop the bot gracefully.
-    updater.idle()
-    logging.info('Finished')
-    logging.shutdown()
+		# Block until the you presses Ctrl-C or the process receives SIGINT,
+		# SIGTERM or SIGABRT. This should be used most of the time, since
+		# start_polling() is non-blocking and will stop the bot gracefully.
+		updater.idle()
+		logging.info('Finished')
+		logging.shutdown()
 
 if __name__ == '__main__':
-    main()
+		main()
